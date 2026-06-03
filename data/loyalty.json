@@ -1,0 +1,31 @@
+{
+  "member": {
+    "name": "Napat 'Beam' Wattanakul",
+    "memberId": "SKD-72184",
+    "tier": "Gold",
+    "nextTier": "Platinum",
+    "points": 2480,
+    "pointsToNextTier": 520,
+    "tierFloor": 1500,
+    "tierCeiling": 3000,
+    "memberSince": "2023"
+  },
+  "tiers": [
+    { "name": "Silver", "min": 0, "perk": "1x points on every ticket" },
+    { "name": "Gold", "min": 1500, "perk": "Free upsize + priority seats" },
+    { "name": "Platinum", "min": 3000, "perk": "2x points + 4 free tickets / year" }
+  ],
+  "_comment_extension_B": "rewards[] and history[] below are NOT rendered by the baseline loyalty page. Building them into a real dashboard is candidate feature B (loyalty dashboard) — see FEATURES.md.",
+  "rewards": [
+    { "id": "r1", "title": "Free Large Popcorn", "cost": 300, "expires": "2026-08-31" },
+    { "id": "r2", "title": "IMAX Seat Upgrade", "cost": 450, "expires": "2026-07-15" },
+    { "id": "r3", "title": "Buy 1 Get 1 — Weekday", "cost": 600, "expires": "2026-09-30" },
+    { "id": "r4", "title": "Birthday Movie Voucher", "cost": 0, "expires": "2026-12-31" }
+  ],
+  "history": [
+    { "date": "2026-05-28", "label": "Neon Harbour — IMAX", "points": 120 },
+    { "date": "2026-05-14", "label": "Redeemed: Free Popcorn", "points": -300 },
+    { "date": "2026-05-02", "label": "Paper Lanterns — 2D", "points": 80 },
+    { "date": "2026-04-21", "label": "The Last Monsoon — 2D", "points": 80 }
+  ]
+}
