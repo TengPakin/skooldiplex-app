@@ -1,0 +1,50 @@
+{
+  "upcoming": [
+    {
+      "id": "tk-7f3k9q",
+      "movieId": "echoes-of-tomorrow",
+      "branch": "CentralWorld",
+      "hall": "IMAX 1",
+      "format": "IMAX",
+      "date": "วันนี้",
+      "dateFull": "5 มิ.ย. 2026",
+      "time": "18:40",
+      "seats": ["C4", "C5"],
+      "code": "SKD-7F3K9Q"
+    },
+    {
+      "id": "tk-2m8x1p",
+      "movieId": "paper-lanterns",
+      "branch": "EmSphere",
+      "hall": "Hall 1",
+      "format": "2D",
+      "date": "พรุ่งนี้",
+      "dateFull": "6 มิ.ย. 2026",
+      "time": "13:45",
+      "seats": ["B7"],
+      "code": "SKD-2M8X1P"
+    }
+  ],
+  "past": [
+    {
+      "id": "tk-9a4t2c",
+      "movieId": "neon-harbour",
+      "branch": "CentralWorld",
+      "hall": "Hall 8",
+      "format": "4DX",
+      "dateFull": "28 พ.ค. 2026",
+      "time": "20:40",
+      "seats": ["E5", "E6"]
+    },
+    {
+      "id": "tk-5q1w8z",
+      "movieId": "the-last-monsoon",
+      "branch": "Mega Bangna",
+      "hall": "Hall 2",
+      "format": "2D",
+      "dateFull": "14 พ.ค. 2026",
+      "time": "16:10",
+      "seats": ["D3"]
+    }
+  ]
+}

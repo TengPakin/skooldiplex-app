@@ -8,11 +8,51 @@
 
 html,
 body {
+  margin: 0;
+  padding: 0;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Hide scrollbar on horizontal scrollers while keeping scroll */
+body {
+  /* Warm, slightly tighter rhythm for a premium feel */
+  letter-spacing: -0.006em;
+}
+
+::selection {
+  background: #faa91a;
+  color: #0b101e;
+}
+
+/* Keyboard focus — amber ring, never removed silently */
+:where(a, button, input, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff8f0, 0 0 0 4px #faa91a;
+  border-radius: 0.75rem;
+}
+
+/* Ambient stage — cinema-lobby glow behind the device on wide screens */
+.ambient-stage {
+  background:
+    radial-gradient(900px 480px at 78% -8%, rgba(250, 169, 26, 0.16), transparent 60%),
+    radial-gradient(760px 520px at 12% 108%, rgba(255, 179, 0, 0.1), transparent 60%),
+    #090d18;
+}
+
+/* Device frame — reads as a phone on desktop, fills the viewport on mobile */
+.device-frame {
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.8);
+}
+@media (min-width: 640px) {
+  .device-frame {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 0 0 10px #05070d,
+      0 40px 90px -30px rgba(0, 0, 0, 0.85);
+  }
+}
+
+/* Hide scrollbars on horizontal scrollers + the device viewport */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -20,10 +60,33 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+.device-frame main::-webkit-scrollbar {
+  width: 0;
+}
 
+/* Film-grain + vignette for movie key-art posters */
+.poster-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.poster-vignette {
+  background-image:
+    radial-gradient(120% 80% at 50% -10%, rgba(255, 255, 255, 0.14), transparent 55%),
+    linear-gradient(to top, rgba(5, 7, 13, 0.92) 4%, rgba(5, 7, 13, 0.18) 46%, transparent 78%);
+}
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

@@ -1,5 +1,5 @@
 import loyalty from "@/data/loyalty.json";
-import { CrownIcon } from "@/components/icons";
+import { CrownIcon, CheckIcon, QrIcon, StarIcon } from "@/components/icons";
 
 /**
  * Loyalty — Skooldiplex baseline (DELIBERATELY MINIMAL).
@@ -9,77 +9,138 @@ import { CrownIcon } from "@/components/icons";
  *    data/loyalty.json already contains `rewards[]` and `history[]` that this
  *    page does NOT render yet. Build them into a real dashboard: redeemable
  *    rewards grid, points history timeline, and tier benefits.
+ *
+ * This page was restyled for production-grade craft; the rewards grid + history
+ * timeline are intentionally still absent so Feature B remains a real exercise.
  */
 
 export default function LoyaltyPage() {
   const { member, tiers } = loyalty;
   const progress = Math.min(
     100,
-    Math.round(
-      ((member.points - member.tierFloor) / (member.tierCeiling - member.tierFloor)) * 100
-    )
+    Math.round(((member.points - member.tierFloor) / (member.tierCeiling - member.tierFloor)) * 100),
   );
+  const currentIdx = tiers.findIndex((t) => t.name === member.tier);
 
   return (
-    <div className="px-5 pt-8">
-      <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Rewards</h1>
-      <p className="mt-1 text-sm text-slate-500">SkooldiFan loyalty</p>
+    <div>
+      {/* Header */}
+      <header className="bg-brand-navy px-5 pb-16 pt-[max(env(safe-area-inset-top),1.25rem)] text-white">
+        <p className="text-[11px] uppercase tracking-brand text-brand-amber">SkooldiFan</p>
+        <h1 className="font-thai mt-1 text-2xl font-bold leading-none">รางวัลของฉัน</h1>
+      </header>
 
-      {/* Member card */}
-      <section className="mt-5 overflow-hidden rounded-[1.5rem] bg-brand-navy p-5 text-white shadow-card">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-widest text-brand-amber">{member.tier} member</p>
-            <p className="mt-1 text-lg font-semibold">{member.name}</p>
-            <p className="text-xs text-slate-400">ID {member.memberId} · since {member.memberSince}</p>
-          </div>
-          <div className="grid h-12 w-12 place-items-center rounded-full bg-brand-amber/15 text-brand-amber">
-            <CrownIcon width={24} height={24} />
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <p className="text-4xl font-semibold tabular-nums tracking-tight">
-            {member.points.toLocaleString()}
-            <span className="ml-1 text-base font-normal text-slate-400">pts</span>
-          </p>
-        </div>
-
-        {/* Progress to next tier */}
-        <div className="mt-4">
-          <div className="mb-1.5 flex justify-between text-xs text-slate-300">
-            <span>{member.tier}</span>
-            <span>{member.pointsToNextTier} pts to {member.nextTier}</span>
-          </div>
-          <div className="h-2 w-full overflow-hidden rounded-full bg-white/15">
-            <div
-              className="h-full rounded-full bg-brand-amber transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Tier benefits (simple list) */}
-      <section className="mt-6">
-        <h2 className="text-sm font-semibold text-slate-900">Your tiers</h2>
-        <div className="mt-2 divide-y divide-slate-100 rounded-2xl border border-slate-200 bg-white">
-          {tiers.map((t) => (
-            <div key={t.name} className="flex items-center justify-between px-4 py-3">
+      {/* Membership card — overlaps the navy edge */}
+      <div className="-mt-10 px-5">
+        <div
+          className="poster-grain relative isolate overflow-hidden rounded-3xl p-5 text-white shadow-poster"
+          style={{ backgroundImage: "linear-gradient(135deg, #243357 0%, #0B101E 70%)" }}
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-10 -top-12 h-40 w-40 rounded-full bg-brand-amber/35 blur-3xl"
+          />
+          <div className="relative z-10">
+            <div className="flex items-start justify-between">
               <div>
-                <p
+                <p className="text-[11px] uppercase tracking-brand text-brand-amber">
+                  {member.tier} Member
+                </p>
+                <p className="mt-1.5 text-base font-semibold">{member.name}</p>
+                <p className="font-thai text-[11px] text-white/50">
+                  ID {member.memberId} · สมาชิกตั้งแต่ {member.memberSince}
+                </p>
+              </div>
+              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-amber/15 text-brand-amber ring-1 ring-brand-amber/30">
+                <CrownIcon width={26} height={26} />
+              </span>
+            </div>
+
+            <div className="mt-6 flex items-end justify-between">
+              <p className="text-4xl font-bold tabular-nums leading-none">
+                {member.points.toLocaleString()}
+                <span className="ml-1.5 text-base font-normal text-white/55">pts</span>
+              </p>
+            </div>
+
+            {/* Progress to next tier */}
+            <div className="mt-4">
+              <div className="font-thai mb-1.5 flex justify-between text-[11px] text-white/65">
+                <span>{member.tier}</span>
+                <span>
+                  อีก {member.pointsToNextTier} แต้มถึง {member.nextTier}
+                </span>
+              </div>
+              <div className="h-2 w-full overflow-hidden rounded-full bg-white/12">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-brand-amber to-brand-amberWarm"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Scan to earn */}
+            <div className="mt-5 flex items-center gap-3 rounded-2xl bg-white/8 p-3">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white text-brand-navy">
+                <QrIcon width={30} height={30} />
+              </span>
+              <div className="font-thai min-w-0 flex-1 text-xs">
+                <p className="font-semibold text-white">แตะเพื่อสะสมแต้ม</p>
+                <p className="text-white/55">สแกนบัตรนี้ที่เคาน์เตอร์ทุกครั้งที่ชมภาพยนตร์</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Tier benefits */}
+      <section className="mt-7 px-5 pb-7">
+        <h2 className="font-thai text-lg font-bold leading-none text-ink">สิทธิ์ตามระดับสมาชิก</h2>
+        <p className="mt-1 text-[11px] uppercase tracking-wide text-faint">Tier benefits</p>
+
+        <div className="mt-3 flex flex-col gap-2.5">
+          {tiers.map((t, i) => {
+            const isCurrent = i === currentIdx;
+            const unlocked = i <= currentIdx;
+            return (
+              <div
+                key={t.name}
+                className={
+                  "flex items-center gap-3.5 rounded-2xl border p-4 transition-colors " +
+                  (isCurrent
+                    ? "border-brand-amber bg-brand-amberSoft/50 shadow-card"
+                    : "border-line bg-surface")
+                }
+              >
+                <span
                   className={
-                    "text-sm font-medium " +
-                    (t.name === member.tier ? "text-brand-amberDark" : "text-slate-900")
+                    "grid h-10 w-10 shrink-0 place-items-center rounded-full " +
+                    (unlocked
+                      ? "bg-brand-amber text-brand-navy"
+                      : "bg-paper2 text-faint ring-1 ring-line2")
                   }
                 >
-                  {t.name}
-                </p>
-                <p className="text-xs text-slate-500">{t.perk}</p>
+                  {unlocked ? <CheckIcon width={18} height={18} /> : <StarIcon width={16} height={16} />}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className={"text-sm font-bold " + (isCurrent ? "text-brand-amberInk" : "text-ink")}>
+                      {t.name}
+                    </p>
+                    {isCurrent && (
+                      <span className="font-thai rounded-full bg-brand-amber px-2 py-0.5 text-[10px] font-bold text-brand-navy">
+                        ระดับปัจจุบัน
+                      </span>
+                    )}
+                  </div>
+                  <p className="font-thai mt-0.5 text-xs text-muted">{t.perk}</p>
+                </div>
+                <span className="shrink-0 text-xs font-semibold tabular-nums text-faint">
+                  {t.min.toLocaleString()}+
+                </span>
               </div>
-              <span className="text-xs tabular-nums text-slate-400">{t.min.toLocaleString()}+</span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

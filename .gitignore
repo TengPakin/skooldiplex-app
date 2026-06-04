@@ -28,3 +28,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# instructor-only deploy tooling (not part of the student baseline)
+deploy.sh
+.vercelignore

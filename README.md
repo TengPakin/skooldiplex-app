@@ -2,6 +2,8 @@
 
 Mobile-first cinema booking & loyalty app — the baseline product for the **Claude Code for PM** workshop (Skooldio PMB#9).
 
+**Live demo:** https://skooldiplex-app.vercel.app
+
 ```bash
 git clone <this-repo-url>
 cd skooldiplex-app
@@ -10,8 +12,8 @@ npm run dev          # open http://localhost:3000
 ```
 
 ## What's inside
-- **Home** · **Movies + showtimes** · **5-step Booking** · **Loyalty/Rewards**
-- Next.js 14 (App Router) + TypeScript + Tailwind. Mock data in `data/`. No backend.
+- **Home** · **Movies** · **Showtimes** (branch + date + showtime selection) · **5-step Booking** (seats → confirm) · **My Tickets** (e-ticket QR) · **Loyalty/Rewards**
+- Next.js 14 (App Router) + TypeScript + Tailwind. Mock data in `data/`. No backend, no env vars.
 
 ## For the workshop
 You'll extend this with the feature you spec'd earlier today. See **[FEATURES.md](./FEATURES.md)** for the three candidate features and exactly where each one plugs in, and **[CLAUDE.md](./CLAUDE.md)** for the codebase map.
